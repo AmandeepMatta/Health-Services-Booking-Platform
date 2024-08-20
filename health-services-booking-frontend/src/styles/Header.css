@@ -1,0 +1,13 @@
+.navbar {
+    background-color: #007bff; /* Hospital-friendly blue */
+  }
+  
+  .navbar-brand, .nav-link {
+    font-weight: bold;
+    color: #ffffff !important; /* Ensure the text color is white */
+  }
+  
+  .navbar-toggler-icon {
+    background-color: #ffffff; /* White toggler for mobile view */
+  }
+  
