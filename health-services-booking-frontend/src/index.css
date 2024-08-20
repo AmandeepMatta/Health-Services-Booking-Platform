@@ -11,3 +11,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f0f8ff; /* Light blue background */
+  color: #333;
+}
+
+header, footer {
+  background-color: #007bff; /* Bootstrap primary blue */
+  color: black;
+}
+
+button {
+  background-color: #007bff; /* Bootstrap primary blue */
+  border: none;
+  border-radius: 4px;
+  color: white;
+}
+
+a {
+  color: #007bff;
+}
+
+a:hover {
+  color: #0056b3;
+}
+
