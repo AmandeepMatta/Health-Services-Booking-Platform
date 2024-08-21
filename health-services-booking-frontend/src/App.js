@@ -1,11 +1,18 @@
 import Header from "./components/Header";
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Login from "./components/Login";
-import Profile from './components/Profile';
+import Profile from "./components/Profile";
 import Register from "./components/Register";
 import Home from "./components/Home"; // Import the Home component
-import Dashboard from './components/Dashboard'; // Add Dashboard import
+import Dashboard from "./components/Dashboard"; // Add Dashboard import
+import DoctorDashboard from "./components/DoctorDashboard";
+import PatientProfile from "./components/PatientProfile";
 import Footer from "./components/Footer";
 
 function ProtectedRoute({ children }) {
@@ -23,13 +30,29 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Doctor/Dashboard"
+              element={
+                <ProtectedRoute>
+                  <DoctorDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile/:id"
+              element={
+                <ProtectedRoute>
+                  <PatientProfile />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/dashboard"
               element={
