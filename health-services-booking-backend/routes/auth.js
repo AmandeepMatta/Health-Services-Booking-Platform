@@ -8,20 +8,31 @@ require('dotenv').config();
 
 // Registration Route
 router.post('/register', async (req, res) => {
-    const { username, email, password, role } = req.body;
+    const { username, email, password, phone, address, role } = req.body;  // Extract phone and address
+  
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);  // Corrected variable name and bcrypt spelling
-        const newUser = await pool.query(
-            'INSERT INTO Users (username, email, password, role) VALUES ($1, $2, $3, $4) RETURNING *',
-            [username, email, hashedPassword, role]
-        );
-        const token = jwt.sign({ id: newUser.rows[0].id, role: newUser.rows[0].role }, process.env.JWT_SECRET);
-        res.json({ token });
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+  
+      // Insert the new user into the database
+      const newUser = await pool.query(
+        'INSERT INTO Users (username, email, password, role) VALUES ($1, $2, $3, $4) RETURNING id',
+        [username, email, hashedPassword, role]
+      );
+  
+      // Insert initial profile record for the user
+      await pool.query(
+        'INSERT INTO Profile (user_id, phone, address) VALUES ($1, $2, $3)',
+        [newUser.rows[0].id, phone, address]
+      );
+  
+      const token = jwt.sign({ id: newUser.rows[0].id, role: role }, process.env.JWT_SECRET);
+      res.json({ token, userId: newUser.rows[0].id });  // Include userId in the response
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
+      console.error(err.message);
+      res.status(500).send('Server error');
     }
-});
+  });
 
 // Login Route
 router.post('/login', async (req, res) => {
