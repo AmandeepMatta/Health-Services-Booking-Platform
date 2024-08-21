@@ -19,6 +19,8 @@ const Login = () => {
         }
       );
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.userId); // Store user ID
+
       navigate("/dashboard"); // Redirect after successful login
     } catch (error) {
       console.error("Login failed:", error);

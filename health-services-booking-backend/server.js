@@ -1,6 +1,7 @@
 const express = require('express');
-const authRoutes = require('./auth'); // Your auth routes file
+const authRoutes = require('./routes/auth.js'); // Your auth routes file
 const authMiddleware = require('./middleware/authMiddleware'); // Adjust the path as needed
+const profileRoutes = require('./routes/profileRoutes.js'); // Adjust the path if necessary
 const app = express();
 
 app.use(express.json());
@@ -10,6 +11,7 @@ app.use(cors());
 
 // Public routes (DO NOT use authMiddleware here)
 app.use('/api/auth', authRoutes);
+app.use('/api', profileRoutes);
 
 // Example of a protected route (DO use authMiddleware here)
 app.use('/api/protected', authMiddleware, (req, res) => {
